@@ -1,0 +1,54 @@
+
+
+.picker {
+  width: 500px;
+}
+
+.picker td {
+  width: 40px;
+  padding: 6px 12px;
+  cursor: pointer;
+
+}
+
+.picker td.range{
+  background-color: aliceblue;;
+}
+
+.picker td.selected {
+  background-color: lightsteelblue;
+}
+
+.picker td.today {
+  border: 1px solid blueviolet;
+}
+
+.picker td.old {
+  color: aqua;
+}
+
+.picker td.new {
+  color: coral;
+}
+
+.picker td.disabled {
+  background-color: #666666 !important;
+  color: #dddddd;
+}
+
+.picker a.disabled {
+  color: #eee;
+}
+
+.picker td.range-start {
+  border-left: 4px solid teal;
+}
+
+.picker td.range-end {
+  border-right: 4px solid teal;
+}
+
+;;
+.picker td:hover {
+  background-color: aliceblue;
+}
