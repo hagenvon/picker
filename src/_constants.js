@@ -11,8 +11,8 @@ export const MILLENNIA = "millennia";
 export const TYPES = [DAYS, WEEKS, MONTHS, YEARS, DECADES, CENTURIES, MILLENNIA];
 export const VIEWS = [MONTHS, YEARS, DECADES, CENTURIES, MILLENNIA];
 
-export const EVENT_NEW_MODEL = "NEW_MODEL";
-export const EVENT_CHANGED_SELECTION = "CHANGED_SELECTION";
+// export const EVENT_NEW_MODEL = "NEW_MODEL";
+// export const EVENT_CHANGED_SELECTION = "CHANGED_SELECTION";
 
 export const ACTION_SHOW_NEXT = "show_next";
 export const ACTION_SHOW_PREV = "show_prev";
