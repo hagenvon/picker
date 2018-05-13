@@ -1,10 +1,10 @@
 
 //-------------------------------
-
+import moment from 'moment';
 import {
-    ACTION_SELECT,
+    ACTION_SELECT, ACTION_SELECT_CLEAR,
     ACTION_SHOW_NEXT,
-    ACTION_SHOW_PREV,
+    ACTION_SHOW_PREV, ACTION_SHOW_TODAY,
     ACTION_VIEW_MODE_UP,
     DAYS,
     MONTHS
@@ -13,9 +13,14 @@ import {
 export function createView(model){
     let str = `
             <div class="picker ${model.settings.cssAnimation? 'animate' : ''} ${model.lastAction}">
-                ${createNavigation(model)}
-                <div class="picker_tables">
+                <div class="picker-heading">
+                    ${createNavigation(model)}
+                </div>
+                <div class="picker-body">
                     ${tableFactory(model)}
+                </div>
+                <div class="picker-footer">
+                    ${createFooter(model)}
                 </div>
             </div>
         `;
@@ -28,7 +33,7 @@ export function createView(model){
 
 function createNavigation(model){
     return  `           
-        <div class="picker_navigation">
+        <div class="picker-navigation">
             ${createButton(model.prevCode, ACTION_SHOW_PREV, `<i class="fas fa-arrow-left"></i>`)}
             ${createButton(model.code, ACTION_VIEW_MODE_UP, model.title)}
             ${createButton(model.nextCode, ACTION_SHOW_NEXT, `<i class="fas fa-arrow-right"></i>`)}
@@ -37,15 +42,22 @@ function createNavigation(model){
 }
 
 function createButton(code, action, content){
-    let result;
-    if (code){
-        result =  `<a class="btn btn-sm btn-light" data-code="${code}" data-action="${action}">${content}</a>`
-    } else {
-        result =  `<a class="btn btn-sm btn-light disabled">${content}</a>`
-    }
-    return result;
+
+    return `<a class="btn btn-sm btn-light" data-code="${code}" data-action="${action}">${content}</a>`;
 }
 
+//----------------------------------
+function createFooter(model){
+    let str = "";
+    if (model.settings.buttonToday ) {
+        str += createButton( "", ACTION_SHOW_TODAY, 'Today' );
+    }
+    if (model.settings.buttonClear ) {
+        str += createButton( "", ACTION_SELECT_CLEAR, "Clear" );
+    }
+    return str;
+
+}
 //-----------------------------
 
 function tableFactory(model){
@@ -69,7 +81,7 @@ function createTableMonth(pickerItem){
     let weeks = pickerItem.getUnits(pickerItem.childType);
 
     let str = `
-        <table class="table table-sm table-borderless picker_table ${pickerItem.type}">
+        <table class="table table-sm table-borderless picker-table ${pickerItem.type}">
             <thead>
                 ${createHeader(weeks[0])}
             </thead>
@@ -113,7 +125,7 @@ function createTable(model) {
     let subUnits = model.getUnits(model.childType);
 
     let str = `
-        <table class="table table-sm table-borderless picker_table ${model.type}">
+        <table class="table table-sm table-borderless picker-table ${model.type}">
             <tbody>
                 ${createTableBody(subUnits)}
             </tbody>

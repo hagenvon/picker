@@ -11,7 +11,7 @@ import {
     DECADES,
     CENTURIES,
     MILLENNIA,
-    FORMAT_DATE
+    FORMAT_DATE, ACTION_SET_MAX_DATE
 } from "./_constants";
 
 
@@ -31,10 +31,11 @@ export class PickerItem {
     constructor(date = moment(), settings = new PickerSettings(), type = MONTHS){
         // let mergedSettings = Object.assign({}, this.settings, settings);
         // console.log(mergedSettings, settings);
+        this.settings = settings;
         this._date = getMoment(date).clone() || moment() ;
 
         const m = this.date;
-        this.settings = settings;
+
         this.type = type;
         this.unit = type;
         this.steps = 1;
@@ -58,7 +59,7 @@ export class PickerItem {
     }
 
     get date(){
-        return moment(this._date, FORMAT_DATE).clone();
+        return moment(this._date, FORMAT_DATE).clone().locale(this.settings.locale);
     }
 
     set date(dateStringOrMoment){
@@ -85,11 +86,10 @@ export class PickerItem {
         let isContainedInDisabled = this.settings.disabled.includes( this.code );
         let isStartAfterMaxDate =  this.settings.maxDate && this.start.isAfter(this.settings.maxDate);
         let isEndBeforeMinDate = this.settings.minDate && this.end.isBefore(this.settings.minDate);
-        let isContainingMinOrMax = false;
-        if (this.settings.minDate || this.settings.maxDate) {
-            isContainingMinOrMax = this.settings.minDate.isBetween(this.start, this.end) || this.settings.maxDate.isBetween(this.start, this.end);
-        }
-        return isContainedInDisabled || isStartAfterMaxDate || isEndBeforeMinDate && !isContainingMinOrMax
+        let isContainingMin = this.settings.minDate && this.settings.minDate.isBetween(this.start, this.end) ;
+        let isContainingMax = this.settings.maxDate && this.settings.maxDate.isBetween(this.start, this.end);
+
+        return isContainedInDisabled || isStartAfterMaxDate || isEndBeforeMinDate && !(isContainingMin || isContainingMax)
     }
 
     get isToday(){

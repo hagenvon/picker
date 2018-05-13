@@ -9,8 +9,10 @@ Array.prototype.unique = function() {
 };
 
 function getMoment(dateString){
-    let result = null;
-    if (dateString && dateString.isValid && dateString.isValid() ){
+    let result;
+    if (!dateString){
+        result = null
+    }else if (dateString && dateString.isValid && dateString.isValid() ){
         result = dateString
     } else if ( moment(dateString, FORMAT_DATE).isValid ) {
         result =  moment(dateString)
@@ -47,7 +49,13 @@ export class PickerSettings{
         this.views = VIEWS.slice(options.minViewMode, options.maxViewMode+1);
         this.calenderWeeks = options.calendarWeeks;
         this.cssAnimation = options.cssAnimation;
+        this.buttonToday = options.buttonToday;
+        this.buttonClear = options.buttonClear;
+        this.locale = options.locale;
+
         this.observers = []
+
+
     }
     addObserver(observer){
         if (observer.notify){

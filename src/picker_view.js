@@ -1,4 +1,5 @@
 import {createView} from "./themes/bootstrap4";
+import {ACTION_SET_MAX_DATE} from "./_constants";
 
 export class PickerView{
 
@@ -27,8 +28,9 @@ export class PickerView{
     }
 
     debug(){
+        let debugId = this.containerNode.id + "-debug";
         let obj = this.model.settings;
-        let div = document.getElementById('debug');
+        let div = document.getElementById(debugId);
         let table = document.createElement('table');
 
         div.innerHTML = "";

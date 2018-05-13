@@ -9,11 +9,29 @@
 </head>
 <body>
 
-<div id="cal"></div>
-<br>
-<br>
 
 <div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2"/>
+                    <div class="dropdown-menu show" aria-labelledby="dLabel">
+                        <div id="cal"></div>
+                    </div>
+                    <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+
+            </div>
+            <span>wdwdwddw</span>
+        </div>
+        <div class="col-sm-6">
+            <div id="cal-debug" class="debug"></div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
@@ -31,7 +49,7 @@
             <span>wdwdwddw</span>
         </div>
         <div class="col-sm-6">
-            <div id="debug"></div>
+            <div id="cal2-debug" class="debug"></div>
         </div>
     </div>
 </div>

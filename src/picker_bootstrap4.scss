@@ -34,6 +34,14 @@
 //@import "../node_modules/bootstrap/scss/print";
 //
 
+
+.debug {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+
 $disabled-bg: $input-disabled-bg;
 $disabled-color: $btn-link-disabled-color;
 $range-bg: rgba($primary, 0.2);
@@ -48,43 +56,51 @@ $picker-item-border-radius: $border-radius-sm;
   overflow: hidden;
 }
 
-.picker_navigation {
+.picker-heading {
+  padding-bottom: 0.5rem;
+}
+
+.picker-body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 8px;
 }
 
-.picker_table {
+.picker-footer {
+  padding-top: 0.5rem;
+}
+
+.picker-navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+.picker-table {
   min-width: 280px;
   margin-bottom: 0;
 }
 
-.picker_tables {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.picker_table td,
-.picker_table th{
+.picker-table td,
+.picker-table th{
   padding: 1px;
   text-align: center;
   font-size: 0.875rem;
   line-height: 1.5;
 }
 
-.picker_table.months th{
+.picker-table.months th{
   width: 14.28571%;
 }
 
-.picker_table.months th.calender-week {
+.picker-table.months th.calender-week {
   width: auto;
 }
-.picker_table.months th.calender-week + .spacer {
+.picker-table.months th.calender-week + .spacer {
   width: 0.5rem;
 }
-.picker_table.months th.calender-week + .spacer ~ th{
+.picker-table.months th.calender-week + .spacer ~ th{
   width: 12.5%;
 }
 
@@ -94,7 +110,6 @@ $picker-item-border-radius: $border-radius-sm;
   cursor: pointer;
   padding: 0.25rem 0.5rem;
 
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .picker-item.old,
@@ -102,7 +117,7 @@ $picker-item-border-radius: $border-radius-sm;
   color: $light;
 }
 
-.picker_table .calender-week {
+.picker-table .calender-week {
   vertical-align: middle;
   color: $disabled-color;
   font-size: 0.8em;
@@ -158,26 +173,26 @@ a.disabled {
 
 .animate {
   &.show_next {
-    .picker_table {
+    .picker-table {
       animation: slideInRight 0.3s ease;
     }
   }
 
   &.show_prev {
-    .picker_table {
+    .picker-table {
       animation: slideInLeft 0.3s ease;
     }
   }
 
   &.view_mode_down {
-    .picker_table {
+    .picker-table {
       animation: zoomIn 0.3s ease;
     }
   }
 
   &.view_mode_up {
-    .picker_table {
-      animation: zoomOut 0.3s ease;
+    .picker-table {
+      animation: zoomInBig 0.3s ease;
     }
   }
 }
@@ -281,15 +296,15 @@ a.disabled {
   }
 }
 
-@keyframes zoomOut {
+@keyframes zoomInBig {
   from {
     opacity: 0;
   }
 
   50% {
     opacity: 0;
-    -webkit-transform: scale3d(2.0, 2.0, 2.0);
-    transform: scale3d(2.0, 2.0, 2.0);
+    -webkit-transform: scale3d(1.6, 1.6, 1.6);
+    transform: scale3d(1.6, 1.6, 1.6);
   }
 
   to {

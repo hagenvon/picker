@@ -18,5 +18,8 @@ export const defaultSettings = {
     maxViewMode: VIEWS.length-1,
     minViewMode: 0,
     calendarWeeks: false,
-    cssAnimation: true
+    cssAnimation: true,
+    buttonToday: true,
+    buttonClear: true,
+    locale: 'en'
 };

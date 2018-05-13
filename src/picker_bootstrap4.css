@@ -1,53 +1,62 @@
+.debug {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  margin-bottom: 20px; }
+
 .picker {
   margin: 0 0.5rem;
   overflow: hidden; }
 
-.picker_navigation {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 8px; }
+.picker-heading {
+  padding-bottom: 0.5rem; }
 
-.picker_table {
-  min-width: 280px;
-  margin-bottom: 0; }
-
-.picker_tables {
+.picker-body {
   display: flex;
   flex-direction: row;
   justify-content: space-between; }
 
-.picker_table td,
-.picker_table th {
+.picker-footer {
+  padding-top: 0.5rem; }
+
+.picker-navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; }
+
+.picker-table {
+  min-width: 280px;
+  margin-bottom: 0; }
+
+.picker-table td,
+.picker-table th {
   padding: 1px;
   text-align: center;
   font-size: 0.875rem;
   line-height: 1.5; }
 
-.picker_table.months th {
+.picker-table.months th {
   width: 14.28571%; }
 
-.picker_table.months th.calender-week {
+.picker-table.months th.calender-week {
   width: auto; }
 
-.picker_table.months th.calender-week + .spacer {
+.picker-table.months th.calender-week + .spacer {
   width: 0.5rem; }
 
-.picker_table.months th.calender-week + .spacer ~ th {
+.picker-table.months th.calender-week + .spacer ~ th {
   width: 12.5%; }
 
 .picker-item {
   position: relative;
   border-radius: 0.2rem;
   cursor: pointer;
-  padding: 0.25rem 0.5rem;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+  padding: 0.25rem 0.5rem; }
 
 .picker-item.old,
 .picker-item.new {
   color: #f8f9fa; }
 
-.picker_table .calender-week {
+.picker-table .calender-week {
   vertical-align: middle;
   color: #6c757d;
   font-size: 0.8em;
@@ -86,14 +95,14 @@
 a.disabled {
   color: #eee; }
 
-.animate.show_next .picker_table {
+.animate.show_next .picker-table {
   animation: slideInRight 0.3s ease; }
-.animate.show_prev .picker_table {
+.animate.show_prev .picker-table {
   animation: slideInLeft 0.3s ease; }
-.animate.view_mode_down .picker_table {
+.animate.view_mode_down .picker-table {
   animation: zoomIn 0.3s ease; }
-.animate.view_mode_up .picker_table {
-  animation: zoomOut 0.3s ease; }
+.animate.view_mode_up .picker-table {
+  animation: zoomInBig 0.3s ease; }
 
 @keyframes toActive {
   0% {
@@ -155,13 +164,13 @@ a.disabled {
     transform: scale3d(0.3, 0.3, 0.3); }
   50% {
     opacity: 1; } }
-@keyframes zoomOut {
+@keyframes zoomInBig {
   from {
     opacity: 0; }
   50% {
     opacity: 0;
-    -webkit-transform: scale3d(2, 2, 2);
-    transform: scale3d(2, 2, 2); }
+    -webkit-transform: scale3d(1.6, 1.6, 1.6);
+    transform: scale3d(1.6, 1.6, 1.6); }
   to {
     opacity: 1; } }
 

@@ -12,11 +12,15 @@ import {
     CENTURIES,
     MILLENNIA,
     FORMAT_DATE,
-    EVENT_NEW_MODEL,
     ACTION_SELECT,
     ACTION_SHOW_PREV,
     ACTION_SHOW_NEXT,
-    ACTION_VIEW_MODE_UP, ACTION_INIT, ACTION_VIEW_MODE_DOWN
+    ACTION_VIEW_MODE_UP,
+    ACTION_INIT,
+    ACTION_VIEW_MODE_DOWN,
+    ACTION_SHOW_TODAY,
+    ACTION_SELECT_CLEAR,
+    ACTION_SET_MIN_DATE, ACTION_SET_MAX_DATE, ACTION_SELECT_REMOVE
 } from "./_constants";
 
 
@@ -46,9 +50,6 @@ export class Picker {
 
 
 
-
-
-        this.action_select = this.action_select.bind(this);
     }
 
     // ------------------
@@ -72,6 +73,7 @@ export class Picker {
         return this._model;
     }
     set model(model){
+        this.settings.viewMode = model.type;
         this._model = model;
     }
 
@@ -84,15 +86,15 @@ export class Picker {
     }
 
     removeSelection(...dates){
-        this.settings.removeSelection(...dates);
+        this.actionController(ACTION_SELECT_REMOVE, ...dates);
     }
 
     clearSelection(){
-        this.settings.selected = [];
+        this.actionController(ACTION_SELECT_CLEAR);
     }
 
     setSelection(...dates){
-        this.settings.setSelection(...dates)
+        this.actionController(ACTION_SELECT, ...dates);
     }
 
     getSelection(){
@@ -109,7 +111,7 @@ export class Picker {
     }
 
     setMaxDate(dateString){
-        this.settings.maxDate = dateString;
+        this.actionController(ACTION_SET_MAX_DATE, dateString)
     }
 
     getMinDate(){
@@ -117,7 +119,7 @@ export class Picker {
     }
 
     setMinDate(dateString){
-        this.settings.minDate = dateString;
+        this.actionController(ACTION_SET_MIN_DATE, dateString)
     }
 
     //----------------------------------
@@ -148,6 +150,9 @@ export class Picker {
             case ACTION_SELECT:
                 shouldFire = this.action_select(...payload);
                 break;
+            case ACTION_SELECT_REMOVE:
+                shouldFire = this.action_removeSelection(...payload);
+                break;
             case ACTION_VIEW_MODE_UP:
                 shouldFire = this.action_changeViewMode(payload, 1);
                 break;
@@ -155,12 +160,25 @@ export class Picker {
                 shouldFire = this.action_changeViewMode(payload, -1);
                 break;
             case ACTION_SHOW_PREV:
-                shouldFire = this.action_showPrev(payload);
+                shouldFire = this.action_showModel(payload);
                 break;
             case ACTION_SHOW_NEXT:
-                shouldFire = this.action_showNext(payload);
+                shouldFire = this.action_showModel(payload);
+                break;
+            case ACTION_SHOW_TODAY:
+                shouldFire = this.action_showToday();
+                break;
+            case ACTION_SELECT_CLEAR:
+                shouldFire = this.action_clear();
+                break;
+            case ACTION_SET_MIN_DATE:
+                shouldFire = this.action_setMinDate(...payload);
+                break;
+            case ACTION_SET_MAX_DATE:
+                shouldFire = this.action_setMaxDate(...payload);
                 break;
             default:
+                console.log("Unknown Action:", action, payload);
                 break;
         }
         if (shouldFire){
@@ -209,20 +227,39 @@ export class Picker {
         let shouldFire = false;
         let indexOfView = this.settings.views.lastIndexOf(this.model.type);
         if (this.settings.views[indexOfView + step]){
-            this.settings.viewMode = this.settings.views[indexOfView + step];
-            this.model = new clazz[this.settings.viewMode](code, this.settings );
+            let nextView = this.settings.views[indexOfView + step];
+            this.model = new clazz[nextView](code, this.settings );
             shouldFire = true;
         }
         return shouldFire;
     }
 
-    action_showNext(code){
+    action_showModel(code){
         this.model = new clazz[this.model.type](code, this.settings );
         return true;
     }
 
-    action_showPrev(code){
-        this.model = new clazz[this.model.type](code, this.settings );
+    action_showToday(){
+        this.model = new clazz[this.settings.views[0]](moment(), this.settings );
+        return true;
+    }
+
+    action_clear(){
+        this.settings.selected = [];
+        return true
+    }
+
+    action_setMinDate(dateString){
+        this.settings.minDate = dateString;
+        return true;
+    }
+    action_setMaxDate(dateString){
+        this.settings.maxDate = dateString;
+        return true;
+    }
+
+    action_removeSelection(...dates){
+        this.settings.removeSelection(...dates);
         return true;
     }
 

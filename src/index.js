@@ -4,12 +4,17 @@ import {Picker} from "./picker";
 import {EVENT_CHANGED_SELECTION} from "./_constants";
 
 
-let date = moment().locale('de');
+let date = moment();
 
 let picker = new Picker(document.getElementById('cal'), {date, multiple: true  });
 picker.addSelection( moment(), moment("2018-05-08"), moment("2016-12-05"), moment("2015-11-11"), "2018-05-07" );
 picker.addSelection( moment(), moment("2016-12-05"), moment("2016-12-05"), moment("2015-11-11") );
 picker.removeSelection(  moment(), moment("2016-12-05") );
+
+setTimeout(function (e) {
+    picker.setMaxDate( "2018-05-20" );
+}, 2000);
+
 
 // console.log(new pickerItem.Day());
 
@@ -19,12 +24,13 @@ let elm = document.getElementById('cal2');
      date,
      multiple: true,
      rangeSelection: true,
-     maxDate: moment("2018-05-15", "YYYY-MM-DD"),
+     maxDate: "2018-05-15",
      minDate: moment("2009-05-10", "YYYY-MM-DD"),
      // minViewMode: 2,
      // viewMode: "years",
      calendarWeeks: true,
-     selectType: "days"
+     selectType: "days",
+     locale: 'de'
  });
 
 
