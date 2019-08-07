@@ -5,7 +5,7 @@
   "main": "index.js",
   "devDependencies": {
     "webpack": "^4.7.0",
-    "webpack-bundle-analyzer": "^2.11.3",
+    "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^2.1.2"
   },
   "scripts": {
